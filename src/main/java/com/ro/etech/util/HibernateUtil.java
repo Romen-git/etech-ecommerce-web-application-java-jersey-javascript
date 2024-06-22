@@ -17,7 +17,8 @@ public class HibernateUtil {
             Properties properties = new Properties();
             properties.load(HibernateUtil.class.getResourceAsStream("/db.properties"));
 
-            configuration.setProperties(properties);
+            configuration.setProperty("hibernate.connection.username", properties.getProperty("db.user"));
+            configuration.setProperty("hibernate.connection.password", properties.getProperty("db.password"));
             configuration.configure();
 
             return configuration.buildSessionFactory();
