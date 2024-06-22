@@ -5,6 +5,7 @@ target/
 src/main/resources/application.properties
 src/main/resources/db.properties
 tomcat.8080
+out
 
 ### IntelliJ IDEA ###
 .idea

@@ -1,8 +1,4 @@
-<%@ page import="com.ro.etech.util.HibernateUtil" %>
-<%@ page import="org.hibernate.Session" %>
-<%@ page import="org.hibernate.Transaction" %>
-<%@ page import="com.ro.etech.entity.Employee" %>
-<%@ page import="com.ro.etech.service.EmployeeService" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: acer
   Date: 10/4/2023
@@ -17,20 +13,14 @@
 <body>
 
 <form>
-    <%
-        String id = request.getParameter("id");
-        EmployeeService employeeService = new EmployeeService();
-        Employee employee = employeeService.employeeById(id);
-
-    %>
     <div>
         <label>Name:</label>
-        <input type="text" id="name" name="name" value="<%=employee.getName()%>" required/>
+        <input type="text" id="name" name="name" value="" required/>
     </div>
     <br/>
     <div>
         <label>Email:</label>
-        <input type="text" id="email" name="email" value="<%=employee.getEmail()%>" required/>
+        <input type="text" id="email" name="email" value="" required/>
     </div>
     <br/>
     <div>
@@ -48,7 +38,7 @@
             name: name,
             email: email,
         }
-        fetch('${BASE_URL}update?id=<%=employee.getId()%>', {
+        fetch('${BASE_URL}update?id=', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
