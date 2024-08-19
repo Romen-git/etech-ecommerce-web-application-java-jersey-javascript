@@ -22,7 +22,7 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
-            <version>10.1.7</version>
+            <version>10.1.28</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -34,7 +34,7 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
-            <version>10.1.7</version>
+            <version>10.1.28</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
