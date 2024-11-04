@@ -57,4 +57,12 @@ public class HomeController {
     public Viewable account() {
         return new Viewable("/frontend/account");
     }
+
+    @Path("/category")
+    @GET
+    @Produces(MediaType.TEXT_HTML)
+    public Viewable category() {
+        return new Viewable("/frontend/category");
+    }
+
 }
