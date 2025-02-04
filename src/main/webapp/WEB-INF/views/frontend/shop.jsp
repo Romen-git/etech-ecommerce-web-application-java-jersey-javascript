@@ -37,7 +37,7 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li><a href="${BASE_URL}index">Home</a></li>
+                            <li><a href="${BASE_URL}">Home</a></li>
                             <li class="active"><a href="${BASE_URL}shop">Shop</a></li>
                             <li><a href="${BASE_URL}cart">Cart</a></li>
                             <li><a href="${BASE_URL}category">Category</a></li>

@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
+@Table(name = "product")
 public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +25,10 @@ public class Product extends BaseEntity {
     @CollectionTable(name = "product_image", joinColumns = @JoinColumn(name = "product_id"))
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> images;
+
+    private Long unitsSold;
+    private Byte rating;
+    private Integer ratingsCount;
 
     public Long getId() {
         return id;
@@ -93,5 +98,29 @@ public class Product extends BaseEntity {
         if (images != null && !images.isEmpty()) {
             images.remove(imageToRemove);
         }
+    }
+
+    public Long getUnitsSold() {
+        return unitsSold;
+    }
+
+    public void setUnitsSold(Long unitsSold) {
+        this.unitsSold = unitsSold;
+    }
+
+    public Byte getRating() {
+        return rating;
+    }
+
+    public void setRating(Byte rating) {
+        this.rating = rating;
+    }
+
+    public Integer getRatingsCount() {
+        return ratingsCount;
+    }
+
+    public void setRatingsCount(Integer ratingsCount) {
+        this.ratingsCount = ratingsCount;
     }
 }

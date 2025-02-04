@@ -12,6 +12,8 @@ public class ProductDTO {
     private Long stock;
     private String createdAt;
     private List<String> images;
+    private Long unitsSold;
+    private Byte rating;
 
     public Long getId() {
         return id;
@@ -76,5 +78,21 @@ public class ProductDTO {
 
     public void setStock(Long stock) {
         this.stock = stock;
+    }
+
+    public Long getUnitsSold() {
+        return unitsSold;
+    }
+
+    public void setUnitsSold(Long unitsSold) {
+        this.unitsSold = unitsSold;
+    }
+
+    public Byte getRating() {
+        return rating;
+    }
+
+    public void setRating(Byte rating) {
+        this.rating = rating;
     }
 }

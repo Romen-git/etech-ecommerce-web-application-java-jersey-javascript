@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ProductService {
@@ -29,6 +31,28 @@ public class ProductService {
         return session.createQuery("SELECT p FROM Product  p WHERE p.active=:active", Product.class)
                 .setParameter("active", active)
                 .getResultList();
+    }
+
+    public List<Product> getLatest() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            LocalDateTime oneYearAgo = LocalDateTime.now().minusYears(2);
+            return session.createQuery("SELECT p FROM Product p JOIN FETCH p.category WHERE p.active = :active AND " +
+                            "p.CreatedAt >= :oneYearAgo ORDER BY p.CreatedAt DESC", Product.class)
+                    .setParameter("oneYearAgo", oneYearAgo)
+                    .setParameter("active", true).getResultList();
+        }
+    }
+
+    public List<Product> getTopSelling() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            LocalDateTime oneYearAgo = LocalDateTime.now().minusYears(2);
+            return session.createQuery("SELECT p FROM Product p JOIN FETCH p.category WHERE p.active = :active AND " +
+                            "p.CreatedAt >= :oneYearAgo AND p.unitsSold >= :threshold ORDER BY p.unitsSold DESC", Product.class)
+                    .setParameter("oneYearAgo", oneYearAgo)
+                    .setParameter("active", true)
+                    .setParameter("threshold", 10)
+                    .setMaxResults(3).getResultList();
+        }
     }
 
     public void save(Product product) {
@@ -85,7 +109,7 @@ public class ProductService {
         session.close();
     }
 
-    public void deleteImages(Product product,String image ,Long id) {
+    public void deleteImages(Product product, String image, Long id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         product.removeImage(image);
