@@ -51,7 +51,9 @@ URL: https://www.freshdesignweb.com/ustora/
 
 
 
+<layout:block name="script_preload">
 
+</layout:block>
 <!-- Latest jQuery form server -->
 <script src="https://code.jquery.com/jquery.min.js"></script>
 
