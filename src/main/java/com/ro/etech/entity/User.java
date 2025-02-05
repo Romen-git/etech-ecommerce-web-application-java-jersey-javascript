@@ -2,6 +2,9 @@ package com.ro.etech.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
@@ -27,11 +30,19 @@ public class User extends BaseEntity {
     @Column(name = "user_type")
     private UserType userType = UserType.USER;
 
-    public User(){
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "recently_viewed_products",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private List<Product> recentlyViewedProducts = new ArrayList<>();
+
+    public User() {
 
     }
 
-    public User(Long id, String firstname,String lastname,String username, String email, String email_verified_at, String verification_code, String password, String address, String city, String post_code, String phone, boolean active) {
+    public User(Long id, String firstname, String lastname, String username, String email, String email_verified_at, String verification_code, String password, String address, String city, String post_code, String phone, boolean active) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -157,5 +168,13 @@ public class User extends BaseEntity {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public List<Product> getRecentlyViewedProducts() {
+        return recentlyViewedProducts;
+    }
+
+    public void setRecentlyViewedProducts(List<Product> recentlyViewedProducts) {
+        this.recentlyViewedProducts = recentlyViewedProducts;
     }
 }
