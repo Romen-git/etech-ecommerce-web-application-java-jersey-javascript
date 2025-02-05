@@ -1,11 +1,13 @@
 package com.ro.etech.service;
 
+import com.ro.etech.dto.ProductDTO;
 import com.ro.etech.entity.Product;
 import com.ro.etech.entity.ProductCategory;
 import com.ro.etech.entity.User;
 import com.ro.etech.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,6 +16,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductService {
@@ -44,20 +48,42 @@ public class ProductService {
         }
     }
 
-    public List<Product> getTopSelling() {
+    public List<Product> getTopSelling(Integer setMax) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             LocalDateTime oneYearAgo = LocalDateTime.now().minusYears(2);
-            List<Product> topSellingProducts = session.createQuery("SELECT p FROM Product p JOIN FETCH p.category WHERE " +
+            Query<Product> topSellingProductsQuery = session.createQuery("SELECT p FROM Product p JOIN FETCH p.category WHERE " +
                             "p.active = :active AND " +
                             "p.CreatedAt >= :oneYearAgo AND p.unitsSold >= :threshold ORDER BY p.unitsSold DESC", Product.class)
                     .setParameter("oneYearAgo", oneYearAgo)
                     .setParameter("active", true)
-                    .setParameter("threshold", 10)
-                    .setMaxResults(3).getResultList();
+                    .setParameter("threshold", 10);
+            if (setMax != null) {
+                topSellingProductsQuery.setMaxResults(3);
+            }
+            List<Product> topSellingProducts = topSellingProductsQuery.getResultList();
+
             if (topSellingProducts.isEmpty()) {
                 return getLatest();
             }
             return topSellingProducts;
+        }
+    }
+
+    public List<Product> getTopNew(Integer setMax) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Product> topNewProductsQuery = session.createQuery("SELECT p FROM Product p JOIN FETCH p.category WHERE " +
+                            "p.active = :active " +
+                            "ORDER BY p.CreatedAt DESC", Product.class)
+                    .setParameter("active", true);
+            if (setMax != null) {
+                topNewProductsQuery.setMaxResults(3);
+            }
+            List<Product> topNewProducts = topNewProductsQuery.getResultList();
+
+            if (topNewProducts.isEmpty()) {
+                return getLatest();
+            }
+            return topNewProducts;
         }
     }
 
@@ -93,6 +119,24 @@ public class ProductService {
         List<Product> recentlyViewedProducts = user != null ? user.getRecentlyViewedProducts() : null;
         session.close();
         return recentlyViewedProducts;
+    }
+
+    public List<ProductDTO> getAllProductDTO(List<Product> products) {
+        List<ProductDTO> productDTOList = new ArrayList<>();
+
+        products.forEach(product -> {
+            ProductDTO dto = new ProductDTO();
+            dto.setId(product.getId());
+            dto.setName(product.getName());
+            dto.setPrice(product.getPrice());
+            dto.setCategory(product.getCategory().getName());
+            dto.setStock(product.getStock());
+            dto.setDescription(product.getDescription());
+            dto.setImages(product.getImages());
+            dto.setCreatedAt(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(product.getCreatedAt()));
+            productDTOList.add(dto);
+        });
+        return productDTOList;
     }
 
     public void save(Product product) {

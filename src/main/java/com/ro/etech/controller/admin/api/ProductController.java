@@ -41,20 +41,8 @@ public class ProductController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
-        List<ProductDTO> list = new ArrayList<>();
         ProductService productService = new ProductService();
-        productService.getAll().forEach(product -> {
-            ProductDTO dto = new ProductDTO();
-            dto.setId(product.getId());
-            dto.setName(product.getName());
-            dto.setPrice(product.getPrice());
-            dto.setCategory(product.getCategory().getName());
-            dto.setStock(product.getStock());
-            dto.setDescription(product.getDescription());
-            dto.setImages(product.getImages());
-            dto.setCreatedAt(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(product.getCreatedAt()));
-            list.add(dto);
-        });
+        List<ProductDTO> list = productService.getAllProductDTO(productService.getAll());
         return Response.ok().entity(list).build();
     }
 

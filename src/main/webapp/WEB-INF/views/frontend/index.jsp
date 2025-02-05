@@ -290,7 +290,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="single-product-widget">
+                        <div class="single-product-widget top-new">
                             <h2 class="product-wid-title">Top New</h2>
                             <a href="#" class="wid-view-more">View All</a>
                             <div class="single-wid-product">
@@ -431,7 +431,7 @@
 
                     function fetchTopSellingProducts() {
 
-                        fetch("/etech/api/product/top-selling")
+                        fetch("/etech/api/product/top-selling?setMax=3")
                             .then(response => response.json())
                             .then(data => {
 
@@ -568,12 +568,59 @@
                         }
                     }
 
+                    function fetchTopNewProducts() {
+
+                        fetch("/etech/api/product/top-new?setMax=3")
+                            .then(response => response.json())
+                            .then(data => {
+
+                                let container = document.querySelector('.top-new');
+
+                                container.innerHTML = `<h2 class="product-wid-title">Top New</h2> <a href="" class="wid-view-more">View All</a>`;
+
+                                data.forEach(product => {
+                                    let productElement = document.createElement('div');
+                                    productElement.className = 'single-wid-product';
+
+                                    let ratingStars = '';
+                                    if (product.rating === 0) {
+                                        ratingStars += '<i class="fa fa-star-o"></i>';
+                                    } else {
+
+                                        for (let i = 0; i < 5; i++) {
+
+                                            if (i < product.rating) {
+                                                ratingStars += '<i class="fa fa-star"></i>';
+                                            } else {
+                                                break;
+                                            }
+                                        }
+
+                                    }
+
+                                    productElement.innerHTML = '<a href="single-product.html?id=' + product.id + '">' +
+                                        '<img src="/etech' + product.image + '" alt="' + product.name + '" class="product-thumb"></a> ' +
+                                        '<h2><a href="single-product.html?id=' + product.id + '">' + product.name + '</a></h2> ' +
+                                        '<div class="product-wid-rating"> ' + ratingStars + ' </div> ' +
+                                        '<div class="product-wid-price"> ' +
+                                        '<ins>$' + product.price + '</ins> ' +
+                                        '<del>$450.00</del> ' +
+                                        '</div>';
+
+                                    container.appendChild(productElement);
+                                });
+
+                            })
+                            .catch(error => console.error('Error fetching top new products', error));
+
+                    }
+
                     fetchLatestProducts();
                     fetchTopSellingProducts();
                     fetchRecentlyViewedProducts();
+                    fetchTopNewProducts();
                 }
-            )
-            ;
+            );
 
 
         </script>
