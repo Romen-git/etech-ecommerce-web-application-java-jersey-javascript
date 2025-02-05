@@ -3,9 +3,7 @@ package com.ro.etech.controller;
 import com.ro.etech.dto.ProductCategoryDTO;
 import com.ro.etech.dto.ProductDTO;
 import com.ro.etech.service.ProductService;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -70,5 +68,31 @@ public class ProductController {
             return dto;
         }).collect(Collectors.toList());
         return Response.ok().entity(topSellingProducts).build();
+    }
+
+    @POST
+    @Path("/{productId}/view")
+    public Response addRecentlyViewedProduct(@PathParam("productId") Long productId, @QueryParam("userId") Long userId) {
+        ProductService productService = new ProductService();
+        productService.addRecentlyViewedProduct(userId, productId);
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("/recently-viewed")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getRecentlyViewedProducts(@QueryParam("userId") Long userId) {
+        ProductService productService = new ProductService();
+        List<ProductDTO> recentlyViewedProducts = productService.getRecentlyViewedProducts(userId).stream()
+                .map(product -> {
+                    ProductDTO dto = new ProductDTO();
+                    dto.setId(product.getId());
+                    dto.setName(product.getName());
+                    dto.setPrice(product.getPrice());
+                    dto.setImages(product.getImages());
+                    dto.setRating(product.getRating());
+                    return dto;
+                }).collect(Collectors.toList());
+        return Response.ok().entity(recentlyViewedProducts).build();
     }
 }

@@ -2,6 +2,7 @@ package com.ro.etech.service;
 
 import com.ro.etech.entity.Product;
 import com.ro.etech.entity.ProductCategory;
+import com.ro.etech.entity.User;
 import com.ro.etech.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -46,13 +47,52 @@ public class ProductService {
     public List<Product> getTopSelling() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             LocalDateTime oneYearAgo = LocalDateTime.now().minusYears(2);
-            return session.createQuery("SELECT p FROM Product p JOIN FETCH p.category WHERE p.active = :active AND " +
+            List<Product> topSellingProducts = session.createQuery("SELECT p FROM Product p JOIN FETCH p.category WHERE " +
+                            "p.active = :active AND " +
                             "p.CreatedAt >= :oneYearAgo AND p.unitsSold >= :threshold ORDER BY p.unitsSold DESC", Product.class)
                     .setParameter("oneYearAgo", oneYearAgo)
                     .setParameter("active", true)
                     .setParameter("threshold", 10)
                     .setMaxResults(3).getResultList();
+            if (topSellingProducts.isEmpty()) {
+                return getLatest();
+            }
+            return topSellingProducts;
         }
+    }
+
+    public void addRecentlyViewedProduct(Long userId, Long productId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        //fetch user and product from database
+        User user = session.get(User.class, userId);
+        Product product = session.get(Product.class, productId);
+
+        if (user != null && product != null) {
+            //add product to recently viewed list for the user
+            List<Product> recentlyViewedProducts = user.getRecentlyViewedProducts();
+            recentlyViewedProducts.add(0, product); //add product at the start of the list
+
+            //limit the number of recently viewed products
+            if (recentlyViewedProducts.size() > 3) {
+                recentlyViewedProducts.remove(recentlyViewedProducts.size() - 1);
+            }
+
+            user.setRecentlyViewedProducts(recentlyViewedProducts);
+            session.merge(user);
+        }
+
+        transaction.commit();
+        session.close();
+    }
+
+    public List<Product> getRecentlyViewedProducts(Long userId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        User user = session.get(User.class, userId);
+        List<Product> recentlyViewedProducts = user != null ? user.getRecentlyViewedProducts() : null;
+        session.close();
+        return recentlyViewedProducts;
     }
 
     public void save(Product product) {

@@ -233,7 +233,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="single-product-widget">
+                        <div class="single-product-widget recently-viewed">
                             <h2 class="product-wid-title">Recently Viewed</h2>
                             <a href="#" class="wid-view-more">View All</a>
                             <div class="single-wid-product">
@@ -357,128 +357,223 @@
         <script type="text/javascript">
 
             document.addEventListener("DOMContentLoaded", function () {
-                function fetchLatestProducts() {
-                    fetch('/etech/api/product/latest')
-                        .then(response => response.json())
-                        .then(data => {
-                            let productContainer = document.getElementById('latest-products');
-                            productContainer.innerHTML = '';
-                            $(".product-carousel").trigger('destroy.owl.carousel');
-                            console.log(data);
-                            data.forEach(product => {
-                                let productElement = document.createElement('div');
-                                productElement.className = 'single-product';
-                                productElement.innerHTML = '<div class="product-f-image">' +
-                                    '<img class="lazy" data-src="/etech' + product.images[0] + '" alt="' + product.name + '">' +
-                                    '<div class="product-hover">' +
-                                    '<a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>' +
-                                    '<a href="single-product.html?id=' + product.id + '" class="view-details-link"><i class="fa fa-link"></i> See details</a>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '<h2><a href="single-product.html?id=' + product.id + '">' + product.name + '</a></h2>' +
-                                    '<div class="product-carousel-price">' +
-                                    '<ins>$' + product.price + '</ins> <del>$1000</del>' +
-                                    '</div>';
-                                productContainer.appendChild(productElement);
+                    function fetchLatestProducts() {
+                        fetch('/etech/api/product/latest')
+                            .then(response => response.json())
+                            .then(data => {
+                                let productContainer = document.getElementById('latest-products');
+                                productContainer.innerHTML = '';
+                                $(".product-carousel").trigger('destroy.owl.carousel');
+                                console.log(data);
+                                data.forEach(product => {
+                                    let productElement = document.createElement('div');
+                                    productElement.className = 'single-product';
+                                    productElement.innerHTML = '<div class="product-f-image">' +
+                                        '<img class="lazy" data-src="/etech' + product.images[0] + '" alt="' + product.name + '">' +
+                                        '<div class="product-hover">' +
+                                        '<a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>' +
+                                        '<a href="single-product.html?id=' + product.id + '" class="view-details-link"><i class="fa fa-link"></i> See details</a>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<h2><a href="single-product.html?id=' + product.id + '">' + product.name + '</a></h2>' +
+                                        '<div class="product-carousel-price">' +
+                                        '<ins>$' + product.price + '</ins> <del>$1000</del>' +
+                                        '</div>';
+                                    productContainer.appendChild(productElement);
 
-                                let img = productElement.querySelector('img');
-                                img.onload = function () {
-                                    productElement.classList.add('loaded');
-                                };
-                            });
-
-                            //reinitialize Owl Carousel
-                            $(".product-carousel").owlCarousel({
-                                loop: true,
-                                nav: true,
-                                margin: 20,
-                                responsiveClass: true,
-                                responsive: {0: {items: 1,}, 600: {items: 3,}, 1000: {items: 5,}}
-                            });
-
-                            //initialize lazy loading for new images
-                            let lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
-                            if ("IntersectionObserver" in window) {
-                                let lazyImageObserver = new IntersectionObserver(function (entries, observer) {
-                                    entries.forEach(function (entry) {
-                                        if (entry.isIntersecting) {
-                                            let lazyImage = entry.target;
-                                            lazyImage.src = lazyImage.dataset.src;
-                                            lazyImage.onload = function () {
-                                                lazyImage.parentNode.parentNode.classList.add('loaded'); //add loaded class to single-product
-                                            };
-                                            lazyImage.classList.remove("lazy");
-                                            lazyImageObserver.unobserve(lazyImage);
-                                        }
-                                    });
-                                });
-                                lazyImages.forEach(function (lazyImage) {
-                                    lazyImageObserver.observe(lazyImage);
-                                });
-                            } else {
-                                //fallback for older browsers
-                                lazyImages.forEach(function (lazyImage) {
-                                    lazyImage.src = lazyImage.dataset.src;
-                                    lazyImage.onload = function () {
-                                        lazyImage.parentNode.parentNode.classList.add('loaded'); //add loaded class to single-product
+                                    let img = productElement.querySelector('img');
+                                    img.onload = function () {
+                                        productElement.classList.add('loaded');
                                     };
-                                    lazyImage.classList.remove("lazy");
                                 });
-                            }
-                        })
-                        .catch(error => console.error('Error fetching products:', error));
-                }
 
-                function fetchTopSellingProducts() {
+                                //reinitialize Owl Carousel
+                                $(".product-carousel").owlCarousel({
+                                    loop: true,
+                                    nav: true,
+                                    margin: 20,
+                                    responsiveClass: true,
+                                    responsive: {0: {items: 1,}, 600: {items: 3,}, 1000: {items: 5,}}
+                                });
 
-                    fetch("/etech/api/product/top-selling")
-                        .then(response => response.json())
-                        .then(data => {
-
-                            let container = document.querySelector('.single-product-widget');
-
-                            container.innerHTML = `<h2 class="product-wid-title">Top Selling</h2> <a href="" class="wid-view-more">View All</a>`;
-
-                            data.forEach(product => {
-                                let productElement = document.createElement('div');
-                                productElement.className = 'single-wid-product';
-
-                                let ratingStars = '';
-                                if (product.rating === 0) {
-                                    ratingStars += '<i class="fa fa-star-o"></i>';
+                                //initialize lazy loading for new images
+                                let lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+                                if ("IntersectionObserver" in window) {
+                                    let lazyImageObserver = new IntersectionObserver(function (entries, observer) {
+                                        entries.forEach(function (entry) {
+                                            if (entry.isIntersecting) {
+                                                let lazyImage = entry.target;
+                                                lazyImage.src = lazyImage.dataset.src;
+                                                lazyImage.onload = function () {
+                                                    lazyImage.parentNode.parentNode.classList.add('loaded'); //add loaded class to single-product
+                                                };
+                                                lazyImage.classList.remove("lazy");
+                                                lazyImageObserver.unobserve(lazyImage);
+                                            }
+                                        });
+                                    });
+                                    lazyImages.forEach(function (lazyImage) {
+                                        lazyImageObserver.observe(lazyImage);
+                                    });
                                 } else {
+                                    //fallback for older browsers
+                                    lazyImages.forEach(function (lazyImage) {
+                                        lazyImage.src = lazyImage.dataset.src;
+                                        lazyImage.onload = function () {
+                                            lazyImage.parentNode.parentNode.classList.add('loaded'); //add loaded class to single-product
+                                        };
+                                        lazyImage.classList.remove("lazy");
+                                    });
+                                }
+                            })
+                            .catch(error => console.error('Error fetching products:', error));
+                    }
 
-                                    for (let i = 0; i < 5; i++) {
+                    function fetchTopSellingProducts() {
 
-                                        if (i < product.rating) {
-                                            ratingStars += '<i class="fa fa-star"></i>';
-                                        } else {
-                                            break;
+                        fetch("/etech/api/product/top-selling")
+                            .then(response => response.json())
+                            .then(data => {
+
+                                let container = document.querySelector('.single-product-widget');
+
+                                container.innerHTML = `<h2 class="product-wid-title">Top Selling</h2> <a href="" class="wid-view-more">View All</a>`;
+
+                                data.forEach(product => {
+                                    let productElement = document.createElement('div');
+                                    productElement.className = 'single-wid-product';
+
+                                    let ratingStars = '';
+                                    if (product.rating === 0) {
+                                        ratingStars += '<i class="fa fa-star-o"></i>';
+                                    } else {
+
+                                        for (let i = 0; i < 5; i++) {
+
+                                            if (i < product.rating) {
+                                                ratingStars += '<i class="fa fa-star"></i>';
+                                            } else {
+                                                break;
+                                            }
                                         }
+
                                     }
 
-                                }
+                                    productElement.innerHTML = '<a href="single-product.html?id=' + product.id + '">' +
+                                        '<img src="/etech' + product.image + '" alt="' + product.name + '" class="product-thumb"></a> ' +
+                                        '<h2><a href="single-product.html?id=' + product.id + '">' + product.name + '</a></h2> ' +
+                                        '<div class="product-wid-rating"> ' + ratingStars + ' </div> ' +
+                                        '<div class="product-wid-price"> ' +
+                                        '<ins>$' + product.price + '</ins> ' +
+                                        '<del>$450.00</del> ' +
+                                        '</div>';
 
-                                productElement.innerHTML = '<a href="single-product.html?id=' + product.id + '">' +
-                                    '<img src="/etech' + product.image + '" alt="' + product.name + '" class="product-thumb"></a> ' +
-                                    '<h2><a href="single-product.html?id=' + product.id + '">' + product.name + '</a></h2> ' +
-                                    '<div class="product-wid-rating"> ' + ratingStars + ' </div> ' +
-                                    '<div class="product-wid-price"> ' +
-                                    '<ins>$' + product.price + '</ins> ' +
-                                    '<del>$450.00</del> ' +
-                                    '</div>';
+                                    container.appendChild(productElement);
+                                });
 
-                                container.appendChild(productElement);
-                            });
+                            })
+                            .catch(error => console.error('Error fetching top selling products', error));
 
-                        })
-                        .catch(error => console.error('Error fetching top selling products', error));
+                    }
 
+                    function fetchRecentlyViewedProducts() {
+
+                        if (localStorage.getItem("userId") === null) {
+
+                            const data = localStorage.getItem("recentlyViewed");
+
+                            let container = document.querySelector('.recently-viewed');
+
+                            if (data === null) {
+                                container.innerHTML = `<h2 class="product-wid-title"></h2>`;
+                            } else {
+
+                                container.innerHTML = `<h2 class="product-wid-title">Top Selling</h2> <a href="" class="wid-view-more">View All</a>`;
+
+                                data.forEach(product => {
+                                    let productElement = document.createElement('div');
+                                    productElement.className = 'single-wid-product';
+
+                                    let ratingStars = '';
+                                    if (product.rating === 0) {
+                                        ratingStars += '<i class="fa fa-star-o"></i>';
+                                    } else {
+
+                                        for (let i = 0; i < 5; i++) {
+
+                                            if (i < product.rating) {
+                                                ratingStars += '<i class="fa fa-star"></i>';
+                                            } else {
+                                                break;
+                                            }
+                                        }
+
+                                    }
+
+                                    productElement.innerHTML = '<a href="single-product.html?id=' + product.id + '">' +
+                                        '<img src="/etech' + product.image + '" alt="' + product.name + '" class="product-thumb"></a> ' +
+                                        '<h2><a href="single-product.html?id=' + product.id + '">' + product.name + '</a></h2> ' +
+                                        '<div class="product-wid-rating"> ' + ratingStars + ' </div> ' +
+                                        '<div class="product-wid-price"> ' +
+                                        '<ins>$' + product.price + '</ins> ' +
+                                        '<del>$450.00</del> ' +
+                                        '</div>';
+
+                                    container.appendChild(productElement);
+                                });
+
+                            }
+                        } else {
+                            const userId = localStorage.getItem("userId");
+                            fetch('/etech/api/product/recently-viewed?userId=' + userId)
+                                .then(response => response.json())
+                                .then(data => {
+                                    let container = document.querySelector('.single-product-widget');
+
+                                    container.innerHTML = `<h2 class="product-wid-title">Top Selling</h2> <a href="" class="wid-view-more">View All</a>`;
+
+                                    data.forEach(product => {
+                                        let productElement = document.createElement('div');
+                                        productElement.className = 'single-wid-product';
+
+                                        let ratingStars = '';
+                                        if (product.rating === 0) {
+                                            ratingStars += '<i class="fa fa-star-o"></i>';
+                                        } else {
+
+                                            for (let i = 0; i < 5; i++) {
+
+                                                if (i < product.rating) {
+                                                    ratingStars += '<i class="fa fa-star"></i>';
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                        }
+
+                                        productElement.innerHTML = '<a href="single-product.html?id=' + product.id + '">' +
+                                            '<img src="/etech' + product.image + '" alt="' + product.name + '" class="product-thumb"></a> ' +
+                                            '<h2><a href="single-product.html?id=' + product.id + '">' + product.name + '</a></h2> ' +
+                                            '<div class="product-wid-rating"> ' + ratingStars + ' </div> ' +
+                                            '<div class="product-wid-price"> ' +
+                                            '<ins>$' + product.price + '</ins> ' +
+                                            '<del>$450.00</del> ' +
+                                            '</div>';
+
+                                        container.appendChild(productElement);
+                                    });
+                                })
+                                .catch(error => console.error('Error fetching recently viewed products:', error));
+                        }
+                    }
+
+                    fetchLatestProducts();
+                    fetchTopSellingProducts();
+                    fetchRecentlyViewedProducts();
                 }
-
-                fetchLatestProducts();
-                fetchTopSellingProducts();
-            });
+            )
+            ;
 
 
         </script>
