@@ -87,176 +87,6 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="single-shop-product">
                             <div class="product-upper">
-                                <img src="${BASE_URL}assets/img/product-1.jpg" alt="">
-                            </div>
-                            <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                            <div class="product-carousel-price">
-                                <ins>$899.00</ins>
-                                <del>$999.00</del>
-                            </div>
-
-                            <div class="product-option-shop">
-                                <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70"
-                                   rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="single-shop-product">
-                            <div class="product-upper">
-                                <img src="${BASE_URL}assets/img/product-3.jpg" alt="">
-                            </div>
-                            <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                            <div class="product-carousel-price">
-                                <ins>$899.00</ins>
-                                <del>$999.00</del>
-                            </div>
-
-                            <div class="product-option-shop">
-                                <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70"
-                                   rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="single-shop-product">
-                            <div class="product-upper">
-                                <img src="${BASE_URL}assets/img/product-4.jpg" alt="">
-                            </div>
-                            <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                            <div class="product-carousel-price">
-                                <ins>$899.00</ins>
-                                <del>$999.00</del>
-                            </div>
-
-                            <div class="product-option-shop">
-                                <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70"
-                                   rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="single-shop-product">
-                            <div class="product-upper">
-                                <img src="${BASE_URL}assets/img/product-2.jpg" alt="">
-                            </div>
-                            <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                            <div class="product-carousel-price">
-                                <ins>$899.00</ins>
-                                <del>$999.00</del>
-                            </div>
-
-                            <div class="product-option-shop">
-                                <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70"
-                                   rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="single-shop-product">
-                            <div class="product-upper">
-                                <img src="${BASE_URL}assets/img/product-1.jpg" alt="">
-                            </div>
-                            <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                            <div class="product-carousel-price">
-                                <ins>$899.00</ins>
-                                <del>$999.00</del>
-                            </div>
-
-                            <div class="product-option-shop">
-                                <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70"
-                                   rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="single-shop-product">
-                            <div class="product-upper">
-                                <img src="${BASE_URL}assets/img/product-3.jpg" alt="">
-                            </div>
-                            <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                            <div class="product-carousel-price">
-                                <ins>$899.00</ins>
-                                <del>$999.00</del>
-                            </div>
-
-                            <div class="product-option-shop">
-                                <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70"
-                                   rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="single-shop-product">
-                            <div class="product-upper">
-                                <img src="${BASE_URL}assets/img/product-4.jpg" alt="">
-                            </div>
-                            <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                            <div class="product-carousel-price">
-                                <ins>$899.00</ins>
-                                <del>$999.00</del>
-                            </div>
-
-                            <div class="product-option-shop">
-                                <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70"
-                                   rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="single-shop-product">
-                            <div class="product-upper">
-                                <img src="${BASE_URL}assets/img/product-2.jpg" alt="">
-                            </div>
-                            <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                            <div class="product-carousel-price">
-                                <ins>$899.00</ins>
-                                <del>$999.00</del>
-                            </div>
-
-                            <div class="product-option-shop">
-                                <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70"
-                                   rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="single-shop-product">
-                            <div class="product-upper">
-                                <img src="${BASE_URL}assets/img/product-1.jpg" alt="">
-                            </div>
-                            <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                            <div class="product-carousel-price">
-                                <ins>$899.00</ins>
-                                <del>$999.00</del>
-                            </div>
-
-                            <div class="product-option-shop">
-                                <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70"
-                                   rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="single-shop-product">
-                            <div class="product-upper">
-                                <img src="${BASE_URL}assets/img/product-3.jpg" alt="">
-                            </div>
-                            <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                            <div class="product-carousel-price">
-                                <ins>$899.00</ins>
-                                <del>$999.00</del>
-                            </div>
-
-                            <div class="product-option-shop">
-                                <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70"
-                                   rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="single-shop-product">
-                            <div class="product-upper">
                                 <img src="${BASE_URL}assets/img/product-4.jpg" alt="">
                             </div>
                             <h2><a href="">Apple new mac book 2015 March :P</a></h2>
@@ -277,22 +107,8 @@
                     <div class="col-md-12">
                         <div class="product-pagination text-center">
                             <nav>
-                                <ul class="pagination">
-                                    <li>
-                                        <a href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li>
-                                        <a href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
+                                <ul class="pagination" id="pagination-ul">
+
                                 </ul>
                             </nav>
                         </div>
@@ -303,16 +119,16 @@
     </layout:put>
     <layout:put block="script" type="REPLACE">
         <script type="text/javascript">
-            function loadProducts() {
+            function loadProducts(page = 1, size = 12) {
 
-                fetch('/etech/admin/api/product')
+                fetch('/etech/api/product?page=' + page + '&size=' + size)
                     .then(response => response.json())
                     .then(data => {
 
                         let div = document.querySelector('#product-div');
                         div.innerHTML = "";
                         let html = '';
-                        data.forEach(product => {
+                        data.products.forEach(product => {
                             let innerhtml = '<div class="col-md-3 col-sm-6"> ' +
                                 '<div class="single-shop-product"> ' +
                                 '<div class="product-upper"> ' +
@@ -332,12 +148,42 @@
 
                         div.innerHTML = html;
 
-                    });
+                        let paginationUl = document.querySelector('#pagination-ul');
+                        paginationUl.innerHTML = "";
+
+                        let previousPage = page > 1 ? page - 1 : 1;
+                        let nextPage = page < data.totalPages ? page + 1 : data.totalPages;
+
+                        let paginationHtml = '<li>' +
+                            '<a href="#" aria-label="Previous" onclick="loadProducts(' + previousPage + ', ' + size + '); return false;">' +
+                            '<span aria-hidden="true">&laquo;</span>' +
+                            '</a>' +
+                            '</li>';
+
+                        for (let i = 1; i <= data.totalPages; i++) {
+                            paginationHtml += '<li class="' + (i === page ? 'active' : '') + '">' +
+                                '<a href="#" onclick="loadProducts(' + i + ', ' + size + '); return false;">' + i + '</a>' +
+                                '</li>';
+                        }
+
+                        paginationHtml += '<li>' +
+                            '<a href="#" aria-label="Next" onclick="loadProducts(' + nextPage + ', ' + size + '); return false;">' +
+                            '<span aria-hidden="true">&raquo;</span>' +
+                            '</a>' +
+                            '</li>';
+
+                        paginationUl.innerHTML = paginationHtml;
+
+                    })
+                    .catch(error => console.log("Error loading products", error));
 
 
             }
 
-            loadProducts();
+            document.addEventListener('DOMContentLoaded', function () {
+                loadProducts();
+            })
+
         </script>
     </layout:put>
 </layout:extends>

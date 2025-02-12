@@ -38,6 +38,26 @@ public class ProductService {
                 .getResultList();
     }
 
+    public List<Product> getProducts(int page, int size) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "SELECT p FROM Product  p";
+        Query<Product> query = session.createQuery(hql, Product.class);
+        query.setFirstResult((page - 1) * size);
+        query.setMaxResults(size);
+        List<Product> products = query.getResultList();
+        session.close();
+        return products;
+    }
+
+    public long getProductCount() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "SELECT COUNT(p.id) FROM Product p";
+        Query<Long> query = session.createQuery(hql, Long.class);
+        long count = query.getSingleResult();
+        session.close();
+        return count;
+    }
+
     public List<Product> getLatest() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             LocalDateTime oneYearAgo = LocalDateTime.now().minusYears(2);

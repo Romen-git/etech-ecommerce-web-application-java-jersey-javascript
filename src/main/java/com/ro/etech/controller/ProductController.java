@@ -1,5 +1,6 @@
 package com.ro.etech.controller;
 
+import com.ro.etech.dto.PaginatedProductResponseDTO;
 import com.ro.etech.dto.ProductCategoryDTO;
 import com.ro.etech.dto.ProductDTO;
 import com.ro.etech.entity.Product;
@@ -25,6 +26,19 @@ public class ProductController {
         dto.setUnitsSold(product.getUnitsSold());
         dto.setRating(product.getRating());
         return dto;
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProducts(@QueryParam("page") @DefaultValue("1") int page, @QueryParam("size") @DefaultValue("12") int size) {
+        ProductService productService = new ProductService();
+        List<ProductDTO> products = productService.getProducts(page, size).stream().map(ProductController::getProductDTO)
+                .collect(Collectors.toList());
+
+        long totalProducts = productService.getProductCount();
+        int totalPages = (int) Math.ceil((double) totalProducts / size);
+
+        return Response.ok().entity(new PaginatedProductResponseDTO(products, totalProducts, totalPages)).build();
     }
 
     @GET
