@@ -907,7 +907,7 @@ ol.slide-indicators li.active {
 }
 
 .product-big-title-area {
-    background: url(img/crossword.png) repeat scroll 0 0 #5a88ca
+    background: url(img/crossword.png) repeat scroll 0 0 #5a88ca;
 }
 
 .product-bit-title h2 {
@@ -1472,4 +1472,13 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button {
 
 .pagination > li > a, .pagination > li > span {
     color: #5a88ca;
+}
+
+.pagination > li.active > a, .pagination > li.active > span {
+    background-color: #5a88ca;
+    color: #ffffff;
+}
+
+#product-div {
+    min-height: 53.7em;
 }
