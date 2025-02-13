@@ -188,16 +188,18 @@ public class ProductController {
     @GET
     @Path("/category")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllCategories() {
+    public Response getAllCategories(@QueryParam("limit") Integer limit) {
         List<ProductCategoryDTO> list = new ArrayList<>();
         ProductService productService = new ProductService();
-        productService.getAllCategories().forEach(productCategory -> {
-            ProductCategoryDTO dto = new ProductCategoryDTO();
-            dto.setId(productCategory.getId());
-            dto.setName(productCategory.getName());
+        List<ProductCategory> categories = productService.getAllCategories(limit);
 
+        categories.forEach(productCategory -> {
+            ProductCategoryDTO dto = new ProductCategoryDTO();
+            dto.setImage_url(productCategory.getImage_url());
+            dto.setName(productCategory.getName());
             list.add(dto);
         });
+
         return Response.ok().entity(list).build();
     }
 

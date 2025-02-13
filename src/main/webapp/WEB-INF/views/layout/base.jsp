@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://callidora.lk/jsp/template-inheritance" prefix="layout"%>
+<%@ taglib uri="http://callidora.lk/jsp/template-inheritance" prefix="layout" %>
 <!DOCTYPE html>
 <!--
 ustora by freshdesignweb.com
@@ -47,10 +47,6 @@ URL: https://www.freshdesignweb.com/ustora/
 <jsp:include page="../frontend/include/footer.jsp"/>
 
 
-
-
-
-
 <layout:block name="script_preload">
 
 </layout:block>
@@ -74,8 +70,8 @@ URL: https://www.freshdesignweb.com/ustora/
 <script type="text/javascript" src="${BASE_URL}assets/js/bxslider.min.js"></script>
 <script type="text/javascript" src="${BASE_URL}assets/js/script.slider.js"></script>
 
-<script>
-    const BASE_URL=${BASE_URL};
+<script type="text/javascript">
+    const BASE_URL =${BASE_URL};
 
     function secureFetch(url, options = {}) {
         const token = localStorage.getItem("accessToken");
@@ -142,16 +138,46 @@ URL: https://www.freshdesignweb.com/ustora/
     }
 
 
-    document.querySelector('.btn-wishlist').addEventListener('click', (evt)=>{
-        secureFetch('${BASE_URL}api/category',{
-            headers:{
-                'Content-Type':'application/json'
+    document.querySelector('.btn-wishlist').addEventListener('click', (evt) => {
+        secureFetch('${BASE_URL}api/category', {
+            headers: {
+                'Content-Type': 'application/json'
             }
-        }).then(response=> response.text())
-            .then(data=>{
+        }).then(response => response.text())
+            .then(data => {
                 console.log(data)
             })
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const limit = 5;
+
+        function loadCategories() {
+            fetch('${BASE_URL}api/product/category?limit=' + limit)
+                .then(response => response.json())
+                .then(data => {
+                    let categoryContainer = document.querySelector('.footer-categories ul');
+                    categoryContainer.innerHTML = '';
+
+                    data.forEach(category => {
+                        let categoryElement = document.createElement('li');
+                        categoryElement.innerHTML = '<a href="#">' + category.name + '</a>';
+                        categoryContainer.appendChild(categoryElement);
+                    });
+
+                    //add "See More" option
+                    let seeMoreElement = document.createElement('li');
+                    seeMoreElement.innerHTML = '<a href="' + BASE_URL + 'category" id="see-more">See More...</a>';
+                    categoryContainer.appendChild(seeMoreElement);
+
+                })
+                .catch(error => console.error('Error fetching categories:', error));
+        }
+
+        loadCategories();
+    });
+
+
 </script>
 <layout:block name="script">
 

@@ -4,6 +4,7 @@ import com.ro.etech.dto.PaginatedProductResponseDTO;
 import com.ro.etech.dto.ProductCategoryDTO;
 import com.ro.etech.dto.ProductDTO;
 import com.ro.etech.entity.Product;
+import com.ro.etech.entity.ProductCategory;
 import com.ro.etech.service.ProductService;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -44,16 +45,18 @@ public class ProductController {
     @GET
     @Path("/category")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllCategories() {
+    public Response getAllCategories(@QueryParam("limit") Integer limit) {
         List<ProductCategoryDTO> list = new ArrayList<>();
         ProductService productService = new ProductService();
-        productService.getAllCategories().forEach(productCategory -> {
+        List<ProductCategory> categories = productService.getAllCategories(limit);
+
+        categories.forEach(productCategory -> {
             ProductCategoryDTO dto = new ProductCategoryDTO();
             dto.setImage_url(productCategory.getImage_url());
             dto.setName(productCategory.getName());
-
             list.add(dto);
         });
+
         return Response.ok().entity(list).build();
     }
 
