@@ -199,9 +199,19 @@ public class ProductService {
                 .getSingleResult();
     }
 
-    public List<ProductCategory> getAllCategories() {
+    public List<ProductCategory> getAllCategories(Integer limit) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        return session.createQuery("SELECT pc FROM ProductCategory  pc", ProductCategory.class).getResultList();
+        String hql = "SELECT pc FROM ProductCategory pc";
+        Query<ProductCategory> query = session.createQuery(hql, ProductCategory.class);
+
+        //apply limit if provided
+        if (limit != null && limit > 0) {
+            query.setMaxResults(limit);
+        }
+
+        List<ProductCategory> categories = query.getResultList();
+        session.close();
+        return categories;
     }
 
     public void deleteCategory(Long id) {

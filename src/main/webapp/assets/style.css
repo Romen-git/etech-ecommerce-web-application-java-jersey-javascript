@@ -147,6 +147,7 @@ body {
     margin-top: 40px;
     padding: 10px;
     position: relative;
+    border-radius: 30px;
 }
 
 .shopping-item a {
@@ -167,9 +168,9 @@ body {
     height: 20px;
     padding-top: 2px;
     position: absolute;
-    right: -10px;
+    right: -7px;
     text-align: center;
-    top: -10px;
+    top: -7px;
     width: 20px;
 }
 
@@ -793,6 +794,7 @@ body {
     text-align: center;
     width: 40px;
     border: 1px solid #5a88ca;
+    border-radius: 30px;
 }
 
 .footer-social a:hover {
@@ -809,8 +811,9 @@ body {
     background: none repeat scroll 0 0 #fff;
     border: medium none;
     margin-bottom: 10px;
-    padding: 10px;
     width: 100%;
+    border-radius: 30px;
+    padding: 10px 10px 10px 16px;
 }
 
 .newsletter-form input[type="submit"] {
@@ -818,10 +821,11 @@ body {
     border: medium none;
     color: #fff;
     display: inline-block;
-    font-size: 18px;
-    padding: 7px 20px;
+    font-size: 15px;
     text-transform: uppercase;
     border: 1px solid #5a88ca;
+    border-radius: 30px;
+    padding: 10px 20px 7px;
 }
 
 .newsletter-form input[type="submit"]:hover {
@@ -847,6 +851,9 @@ a:hover, a:focus {
     padding-bottom: 40px;
 }
 
+.footer-categories ul li:nth-child(6) a{
+    color: #1f7686;
+}
 
 .slide-bulletz {
     bottom: 30px;
@@ -1481,4 +1488,8 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button {
 
 #product-div {
     min-height: 53.7em;
+}
+
+.user-navigation {
+    padding-top: 48px;
 }
