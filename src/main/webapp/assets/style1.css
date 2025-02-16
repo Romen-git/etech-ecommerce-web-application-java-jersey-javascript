@@ -2267,6 +2267,34 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
     box-shadow: none;
 }
 
+.forgot-password {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.to-login {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.user-full-name {
+    display: flex;
+    gap: 0.3em;
+}
+
+.user-full-name .form-group {
+    flex: 1;
+}
+
+.user-name {
+    display: flex;
+    gap: 0.3em;
+}
+
+.user-name .form-group {
+    flex: 0.5;
+}
+
 .shopping .widget-title {
     font-weight: 400;
     border-bottom: 1px solid #dedede;
