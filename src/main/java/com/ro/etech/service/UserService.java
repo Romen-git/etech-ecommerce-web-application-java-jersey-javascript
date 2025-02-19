@@ -22,7 +22,7 @@ public class UserService {
                     .uniqueResultOptional();
         } catch (NoResultException e) {
             return Optional.empty();
-        }finally {
+        } finally {
             session.close();
         }
     }
@@ -31,6 +31,14 @@ public class UserService {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.persist(user);
+        transaction.commit();
+        session.close();
+    }
+
+    public void update(User user) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.merge(user);
         transaction.commit();
         session.close();
     }

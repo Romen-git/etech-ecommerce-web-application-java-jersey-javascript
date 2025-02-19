@@ -40,7 +40,6 @@
                                 </div>
                             </form>
                             <p class="mt-40 to-login">Already hava an account ?<a href="${BASE_URL}login"> Login</a></p>
-                            <p class="forgot-password"><a href="forget-password.html"> Forgot your password?</a></p>
                         </div>
                     </div>
                 </div>

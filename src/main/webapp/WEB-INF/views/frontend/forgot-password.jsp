@@ -11,22 +11,17 @@
                             <a class="logo" href="index.html">
                                 <img src="${BASE_URL}assets/img/logo.png" alt="">
                             </a>
-                            <h2 class="text-center">Welcome Back</h2>
+                            <h2 class="text-center">Forgot Password</h2>
                             <form class="text-left clearfix">
                                 <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Email" id="email_2">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password" id="password_2">
+                                    <input type="email" class="form-control" placeholder="Email" id="email_3">
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-main text-center login1">Login</button>
+                                    <button type="submit" class="btn btn-main text-center login1">Reset Password
+                                    </button>
                                 </div>
                             </form>
-                            <p class="mt-40 to-login">New in this site?<a href="${BASE_URL}signin"> Create New
-                                Account</a></p>
-                            <p class="forgot-password"><a href="${BASE_URL}forgot-password">Forgot your password?</a>
-                            </p>
+                            <p class="mt-40 to-login"><a href="${BASE_URL}login">Back to Login</a></p>
                         </div>
                     </div>
                 </div>
@@ -41,29 +36,24 @@
 
                 event.preventDefault();
 
-                let email = document.querySelector("#email_2").value;
-                let password = document.querySelector("#password_2").value;
+                let email = document.querySelector("#email_3").value;
 
                 try {
-                    const response = await fetch('${BASE_URL}login', {
-                        method: 'post',
+                    const response = await fetch('${BASE_URL}auth/forgot-password', {
+                        method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
                             email: email,
-                            password: password
                         })
                     });
 
                     if (!response.ok) {
                         const text = await response.text();
-                        console.log(text);
+                        alert(text);
                     } else {
-                        const data = await response.json();
-                        localStorage.setItem("accessToken", data.accessToken);
-                        localStorage.setItem("refreshToken", data.refreshToken);
-                        localStorage.setItem("expireIn", data.expireIn);
+                        alert("Password link has been sent to your email.")
                         window.location.href = "${BASE_URL}home";
                     }
                 } catch (error) {

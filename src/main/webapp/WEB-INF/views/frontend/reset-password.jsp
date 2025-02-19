@@ -11,22 +11,23 @@
                             <a class="logo" href="index.html">
                                 <img src="${BASE_URL}assets/img/logo.png" alt="">
                             </a>
-                            <h2 class="text-center">Welcome Back</h2>
+                            <h2 class="text-center">Forgot Password</h2>
                             <form class="text-left clearfix">
+                                <input type="hidden" id="token" value="${param.get("token")}">
                                 <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Email" id="email_2">
+                                    <input type="password" class="form-control" placeholder="New Password"
+                                           id="new_password">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password" id="password_2">
+                                    <input type="password" class="form-control" placeholder="Confirm Password"
+                                           id="confirm_password">
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-main text-center login1">Login</button>
+                                    <button type="submit" class="btn btn-main text-center login1">Reset Password
+                                    </button>
                                 </div>
                             </form>
-                            <p class="mt-40 to-login">New in this site?<a href="${BASE_URL}signin"> Create New
-                                Account</a></p>
-                            <p class="forgot-password"><a href="${BASE_URL}forgot-password">Forgot your password?</a>
-                            </p>
+                            <p class="mt-40 to-login"><a href="${BASE_URL}login">Back to Login</a></p>
                         </div>
                     </div>
                 </div>
@@ -41,30 +42,33 @@
 
                 event.preventDefault();
 
-                let email = document.querySelector("#email_2").value;
-                let password = document.querySelector("#password_2").value;
+                let token = document.querySelector("#token").value;
+                let newPassword = document.querySelector("#new_password").value;
+                let confirmPassword = document.querySelector("#confirm_password").value;
+
+                if (newPassword !== confirmPassword) {
+                    alert("Passwords do not match.")
+                    return;
+                }
 
                 try {
-                    const response = await fetch('${BASE_URL}login', {
-                        method: 'post',
+                    const response = await fetch('${BASE_URL}auth/reset-password', {
+                        method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            email: email,
-                            password: password
+                            token: token,
+                            newPassword: newPassword,
                         })
                     });
 
                     if (!response.ok) {
                         const text = await response.text();
-                        console.log(text);
+                        alert(text);
                     } else {
-                        const data = await response.json();
-                        localStorage.setItem("accessToken", data.accessToken);
-                        localStorage.setItem("refreshToken", data.refreshToken);
-                        localStorage.setItem("expireIn", data.expireIn);
-                        window.location.href = "${BASE_URL}home";
+                        alert("Password has been Reset Successfully.")
+                        window.location.href = "${BASE_URL}login";
                     }
                 } catch (error) {
                     console.error('err:', error);
