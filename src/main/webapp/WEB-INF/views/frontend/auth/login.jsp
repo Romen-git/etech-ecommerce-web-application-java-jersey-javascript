@@ -23,7 +23,10 @@
                                     <button type="submit" class="btn btn-main text-center login1">Login</button>
                                 </div>
                             </form>
-                            <p class="mt-20">New in this site ?<a href="${BASE_URL}signin"> Create New Account</a></p>
+                            <p class="mt-40 to-login">New in this site?<a href="${BASE_URL}signin"> Create New
+                                Account</a></p>
+                            <p class="forgot-password"><a href="${BASE_URL}forgot-password">Forgot your password?</a>
+                            </p>
                         </div>
                     </div>
                 </div>

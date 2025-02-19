@@ -1,9 +1,11 @@
 package com.ro.etech.controller;
 
 import com.ro.etech.annotation.ApiSecure;
+import com.ro.etech.dto.AuthDTO;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import org.glassfish.jersey.server.mvc.Viewable;
 
@@ -64,6 +66,20 @@ public class HomeController {
     @Produces(MediaType.TEXT_HTML)
     public Viewable category() {
         return new Viewable("/frontend/category");
+    }
+
+    @Path("/forgot-password")
+    @GET
+    @Produces(MediaType.TEXT_HTML)
+    public Viewable forgotPassword() {
+        return new Viewable("/frontend/forgot-password");
+    }
+
+    @Path("/reset-password")
+    @GET
+    @Produces(MediaType.TEXT_HTML)
+    public Viewable resetPassword(@QueryParam("token") String token) {
+        return new Viewable("/frontend/reset-password");
     }
 
 }
